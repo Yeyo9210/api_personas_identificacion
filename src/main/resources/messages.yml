@@ -1,0 +1,9 @@
+NotEmpty:
+  identification:
+    identificationName: El nombre de identificación es requerido
+    description: La descrición es requerida
+  persons:
+    name: El nombre de la persona es obligatorio
+NotNull:
+  persons:
+    age: La edad de la persona es obligatoria
