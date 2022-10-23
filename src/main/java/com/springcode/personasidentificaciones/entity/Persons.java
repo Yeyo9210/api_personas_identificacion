@@ -25,11 +25,11 @@ public class Persons {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
-    private long id;
+    private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "El nombre de la persona es requerido")
     private String name;
-    @NotNull
+    @NotNull(message = "La edad de la persona es obligatoria")
     private int age;
 
     @Enumerated(EnumType.STRING)

@@ -1,14 +1,14 @@
 package com.springcode.personasidentificaciones.services.impl;
 
 import com.springcode.personasidentificaciones.entity.Identification;
-import com.springcode.personasidentificaciones.entity.Persons;
 import com.springcode.personasidentificaciones.repositories.IdentificationRepository;
 import com.springcode.personasidentificaciones.services.IdentificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Service
 public class IdentificationServiceImpl implements IdentificationService {
@@ -27,17 +27,17 @@ public class IdentificationServiceImpl implements IdentificationService {
     }
 
     @Override
-    public Collection<Identification> listIdentifications() {
-        return identificationRepository.findAll();
+    public Set<Identification> listIdentifications() {
+        return new HashSet<>(identificationRepository.findAll());
     }
 
     @Override
-    public Optional<Identification> findIdentificationForId(long id) {
-        return identificationRepository.findById(id);
+    public Identification findIdentification(Long id) {
+        return identificationRepository.findById(id).get();
     }
 
     @Override
-    public void deleteIdentification(long id) {
+    public void deleteIdentification(Long id) {
         Identification identification = new Identification();
         identification.setId(id);
         identificationRepository.delete(identification);

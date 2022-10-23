@@ -24,21 +24,19 @@ public class Identification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "identification_id")
-    private long id;
+    private Long id;
 
-    @NotEmpty
     @Enumerated(EnumType.STRING)
     private Ident identificationName;
 
-    @NotEmpty
+    @NotEmpty(message = "La descripción es requerida")
     private String description;
 
-    @Column(name = "date_idetification")
+    @Column(name = "date_identification")
     @JsonFormat(pattern = "YYYY-MM-dd")
     private Date createdAt;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JsonBackReference
     @JoinTable(name = "persons_identifications",joinColumns = @JoinColumn(name = "identification_id",
             referencedColumnName = "identification_id"), inverseJoinColumns = @JoinColumn(name = "person_id",
             referencedColumnName = "person_id"))

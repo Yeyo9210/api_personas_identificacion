@@ -2,15 +2,14 @@ package com.springcode.personasidentificaciones.services;
 
 import com.springcode.personasidentificaciones.entity.Identification;
 import com.springcode.personasidentificaciones.entity.Persons;
-
-import java.util.Collection;
-import java.util.Optional;
+import java.util.Set;
 
 public interface PersonsService {
+
     Persons addPersons(Persons persons);
     Persons updatePersons(Persons persons);
-    Collection<Persons> listPersons();
-    Collection<Identification> findIdentificationForPersons(long id);
-    Optional<Persons> findPersonsForId(long id);
-    void deletePersons(long id);
+    Set<Persons> listPersons();
+    Persons listPerson(Long id);
+    Set<Identification> findIdentificationForPersons(Long id);
+    void deletePersons(Long id);
 }

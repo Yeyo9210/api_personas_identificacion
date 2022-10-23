@@ -2,14 +2,14 @@ package com.springcode.personasidentificaciones.controller;
 
 import com.springcode.personasidentificaciones.entity.Identification;
 import com.springcode.personasidentificaciones.entity.Persons;
+import com.springcode.personasidentificaciones.services.IdentificationService;
 import com.springcode.personasidentificaciones.services.PersonsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/persons")
@@ -17,6 +17,9 @@ public class PersonsController {
 
     @Autowired
     private PersonsService personsService;
+
+    @Autowired
+    private IdentificationService identificationService;
 
     @PostMapping("/")
     public ResponseEntity<Persons> addPersons(@RequestBody Persons persons){
@@ -29,23 +32,23 @@ public class PersonsController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Collection<Persons>> listPersons(){
+    public ResponseEntity<?> listPersons(){
         return ResponseEntity.ok(personsService.listPersons());
     }
 
     @GetMapping("/{id}")
-    public Optional<Persons> findPersons(@PathVariable("id") long id){
-        return personsService.findPersonsForId(id);
+    public Persons findPersons(@PathVariable("id") Long id){
+        return personsService.listPerson(id);
     }
 
-    @GetMapping("/{id}/identification")
-    public ResponseEntity<Collection<Identification>> listIdentificationsPersons(@PathVariable long id){
-        Optional<Persons> persons = personsService.findPersonsForId(id);
-            return ResponseEntity.ok(persons.get().getIdentifications());
+    @GetMapping("/{id}/identifications")
+    public ResponseEntity<Set<Identification>>listIdentificationForPersons(@PathVariable("id") Long id){
+        Persons persons = personsService.listPerson(id);
+        return new ResponseEntity<>(persons.getIdentifications(), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePersons(@PathVariable("id") long id){
+    public void deletePersons(@PathVariable("id") Long id){
         personsService.deletePersons(id);
     }
 }

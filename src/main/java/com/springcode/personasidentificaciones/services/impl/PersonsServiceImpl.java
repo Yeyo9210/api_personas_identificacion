@@ -7,8 +7,8 @@ import com.springcode.personasidentificaciones.services.PersonsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class PersonsServiceImpl implements PersonsService {
@@ -27,22 +27,22 @@ public class PersonsServiceImpl implements PersonsService {
     }
 
     @Override
-    public Collection<Persons> listPersons() {
-        return personsRepository.findAll();
+    public Set<Persons> listPersons() {
+        return new HashSet<>(personsRepository.findAll());
     }
 
     @Override
-    public Collection<Identification> findIdentificationForPersons(long id) {
-        return personsRepository.findByIdPersons(id);
+    public Persons listPerson(Long id) {
+        return personsRepository.findById(id).get();
     }
 
     @Override
-    public Optional<Persons> findPersonsForId(long id) {
-        return personsRepository.findById(id);
+    public Set<Identification> findIdentificationForPersons(Long id) {
+        return personsRepository.findPersonsById(id);
     }
 
     @Override
-    public void deletePersons(long id) {
+    public void deletePersons(Long id) {
         Persons persons = new Persons();
         persons.setId(id);
         personsRepository.delete(persons);

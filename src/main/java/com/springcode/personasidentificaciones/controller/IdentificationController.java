@@ -5,8 +5,7 @@ import com.springcode.personasidentificaciones.services.IdentificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.Collection;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/identification")
@@ -21,22 +20,22 @@ public class IdentificationController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Identification> updatePersons(@RequestBody Identification identification){
+    public ResponseEntity<Identification> updateIdentification(@RequestBody Identification identification){
         return ResponseEntity.ok(identificationService.updateIdentification(identification));
     }
 
     @GetMapping("/")
-    public ResponseEntity<Collection<Identification>> listIdentification(){
+    public ResponseEntity<?> listIdentification(){
         return ResponseEntity.ok(identificationService.listIdentifications());
     }
 
     @GetMapping("/{id}")
-    public Optional<Identification> findPersons(@PathVariable("id") long id){
-        return identificationService.findIdentificationForId(id);
+    public Identification findIdentification(@PathVariable("id") Long id){
+        return identificationService.findIdentification(id);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePersons(@PathVariable("id") long id){
+    public void deleteIdentification(@PathVariable("id") Long id){
         identificationService.deleteIdentification(id);
     }
 }
